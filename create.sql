@@ -1,4 +1,3 @@
--- OK
 CREATE TABLE PERSON (
     ID INT GENERATED ALWAYS AS IDENTITY (START WITH 1 INCREMENT BY 1) NOT NULL,
     BIO VARCHAR2(1000),
@@ -150,161 +149,67 @@ CREATE TABLE FOLLOWS (
     CONSTRAINT FK_FOLLOWS_IS_FOLLOWED FOREIGN KEY (ID_IS_FOLLOWED) REFERENCES USER_(ID)
 );
 
-INSERT INTO PERSON (BIO, PICTURE) VALUES ('Aventureira ávida por descobertas e apaixonada por fotografia.', NULL);
-INSERT INTO PERSON (BIO, PICTURE) VALUES ('Escritor noturno e entusiasta de café. Sempre em busca de inspiração.', NULL);
-INSERT INTO PERSON (BIO, PICTURE) VALUES ('Amante da natureza e defensora dos direitos dos animais.', NULL);
-INSERT INTO PERSON (BIO, PICTURE) VALUES ('Explorador urbano e amante da cultura de rua.', NULL);
-INSERT INTO PERSON (BIO, PICTURE) VALUES ('Entusiasta da música clássica e chef em treinamento.', NULL);
-INSERT INTO PERSON (BIO, PICTURE) VALUES ('Viajante do mundo em busca de experiências culinárias únicas.', NULL);
-INSERT INTO PERSON (BIO, PICTURE) VALUES ('Gamer dedicado e colecionador de histórias em quadrinhos.', NULL);
-INSERT INTO PERSON (BIO, PICTURE) VALUES ('Artista em ascensão, inspirado pelas cores da vida.', NULL);
-INSERT INTO PERSON (BIO, PICTURE) VALUES ('Empreendedor social comprometido com mudanças positivas.', NULL);
-INSERT INTO PERSON (BIO, PICTURE) VALUES ('Entusiasta do fitness e defensor da vida saudável.', NULL);
+-- Inserir dados na tabela PERSON
+INSERT INTO PERSON (BIO, PICTURE) VALUES ('John Doe is a passionate movie enthusiast.', NULL);
+INSERT INTO PERSON (BIO, PICTURE) VALUES ('Jane Smith loves watching movies in her free time.', NULL);
 
-CREATE OR REPLACE TRIGGER user_insert_trigger
-BEFORE INSERT ON USER_
-FOR EACH ROW
-BEGIN
-    :NEW.WATCHED := 0;
-END;
-/
+-- Inserir dados na tabela USER_
+INSERT INTO USER_ (ID, NICK, USER_PASSWORD, EMAIL, WATCHED, CREATION_DATE) VALUES (1, 'john_doe', 'hashed_password', 'john@example.com', 0, SYSDATE);
+INSERT INTO USER_ (ID, NICK, USER_PASSWORD, EMAIL, WATCHED, CREATION_DATE) VALUES (2, 'jane_smith', 'hashed_password', 'jane@example.com', 0, SYSDATE);
 
-INSERT INTO FAVORITE_MOVIES (ID, FAVORITE_MOVIES) VALUES (1, 'Fast and Furious 1');
-INSERT INTO FAVORITE_MOVIES (ID, FAVORITE_MOVIES) VALUES (2, 'More fast and more furious');
-INSERT INTO FAVORITE_MOVIES (ID, FAVORITE_MOVIES) VALUES (3, 'Tokyo Drift');
-INSERT INTO FAVORITE_MOVIES (ID, FAVORITE_MOVIES) VALUES (4, 'Fast and Furious 1');
-INSERT INTO FAVORITE_MOVIES (ID, FAVORITE_MOVIES) VALUES (5, 'Fast and Furious 1');
-INSERT INTO FAVORITE_MOVIES (ID, FAVORITE_MOVIES) VALUES (6, 'Fast and Furious 1');
-INSERT INTO FAVORITE_MOVIES (ID, FAVORITE_MOVIES) VALUES (7, 'Fast and Furious 1');
-INSERT INTO FAVORITE_MOVIES (ID, FAVORITE_MOVIES) VALUES (8, 'Fast and Furious 8');
-INSERT INTO FAVORITE_MOVIES (ID, FAVORITE_MOVIES) VALUES (9, 'Fast and Furious 9');
-INSERT INTO FAVORITE_MOVIES (ID, FAVORITE_MOVIES) VALUES (10, 'Fast and Furious 10');
+-- Inserir dados na tabela LIST_MOVIES
+INSERT INTO LIST_MOVIES (DESCRIPTION_, LIST_NAME, CREATION_DATE, ID_USER) VALUES ('Action Movies', 'Action List', SYSDATE, 1);
+INSERT INTO LIST_MOVIES (DESCRIPTION_, LIST_NAME, CREATION_DATE, ID_USER) VALUES ('Romantic Movies', 'Romance List', SYSDATE, 2);
 
--- INSERT INTO MOVIE (AVERAGE_GRADE, MOVIE_NAME, COVER, D_SYNOSPSIS, D_YEAR, D_DURATION) VALUES (NULL, 'Fast and Furious 1', NULL, 'A drag race movie', 2003, 111);
--- INSERT INTO MOVIE (AVERAGE_GRADE, MOVIE_NAME, COVER, D_SYNOSPSIS, D_YEAR, D_DURATION) VALUES (NULL, 'More fast and more furious', NULL, 'A drag race movie', 2004, 114);
--- INSERT INTO MOVIE (AVERAGE_GRADE, MOVIE_NAME, COVER, D_SYNOSPSIS, D_YEAR, D_DURATION) VALUES (NULL, 'Tokyo Drift', NULL, 'A drag race movie', 2005, 115);
--- INSERT INTO MOVIE (AVERAGE_GRADE, MOVIE_NAME, COVER, D_SYNOSPSIS, D_YEAR, D_DURATION) VALUES (NULL, 'Fast and Furious 4', NULL, 'A drag race movie', 2006, 116);
--- INSERT INTO MOVIE (AVERAGE_GRADE, MOVIE_NAME, COVER, D_SYNOSPSIS, D_YEAR, D_DURATION) VALUES (NULL, 'Fast and Furious 5', NULL, 'A drag race movie', 2007, 117);
--- INSERT INTO MOVIE (AVERAGE_GRADE, MOVIE_NAME, COVER, D_SYNOSPSIS, D_YEAR, D_DURATION) VALUES (NULL, 'Fast and Furious 6', NULL, 'A drag race movie', 2008, 118);
--- INSERT INTO MOVIE (AVERAGE_GRADE, MOVIE_NAME, COVER, D_SYNOSPSIS, D_YEAR, D_DURATION) VALUES (NULL, 'Fast and Furious 7', NULL, 'A drag race movie', 2009, 119);
--- INSERT INTO MOVIE (AVERAGE_GRADE, MOVIE_NAME, COVER, D_SYNOSPSIS, D_YEAR, D_DURATION) VALUES (NULL, 'Fast and Furious 8', NULL, 'A drag race movie', 2010, 120);
--- INSERT INTO MOVIE (AVERAGE_GRADE, MOVIE_NAME, COVER, D_SYNOSPSIS, D_YEAR, D_DURATION) VALUES (NULL, 'Fast and Furious 9', NULL, 'A drag race movie', 2011, 121);
--- INSERT INTO MOVIE (AVERAGE_GRADE, MOVIE_NAME, COVER, D_SYNOSPSIS, D_YEAR, D_DURATION) VALUES (NULL, 'Fast and Furious 10', NULL, 'A drag race movie', 2012, 122);
+-- Inserir dados na tabela MOVIE
+INSERT INTO MOVIE (AVERAGE_GRADE, MOVIE_NAME, COVER, D_SYNOSPSIS, D_YEAR, D_DURATION) VALUES (8.5, 'Inception', NULL, 'A thief who steals corporate secrets through the use of dream-sharing technology is given the inverse task of planting an idea into the mind of a C.E.O.', 2010, 148);
+INSERT INTO MOVIE (AVERAGE_GRADE, MOVIE_NAME, COVER, D_SYNOSPSIS, D_YEAR, D_DURATION) VALUES (7.9, 'Titanic', NULL, 'A seventeen-year-old aristocrat falls in love with a kind but poor artist aboard the luxurious, ill-fated R.M.S. Titanic.', 1997, 195);
 
-CREATE OR REPLACE TRIGGER calculate_average_grade
-BEFORE INSERT ON MOVIE
-FOR EACH ROW
-BEGIN
-    IF :NEW.AVERAGE_GRADE IS NULL THEN
-        :NEW.AVERAGE_GRADE := 0; -- Valor padrão para média de avaliação
-    END IF;
-END;
-/
-
-CREATE OR REPLACE TRIGGER update_crew_counters
-AFTER INSERT ON CREW_MEMBER
-FOR EACH ROW
-DECLARE
-    v_person_id INT;
-BEGIN
-    -- Obter o ID da pessoa associada ao membro da equipe
-    SELECT ID INTO v_person_id FROM PERSON WHERE ID = :NEW.ID;
-    
-    -- Incrementar os contadores apropriados baseado no papel do membro da equipe
-    IF :NEW.ROLE = 'Actor' THEN
-        UPDATE CREW_MEMBER SET N_ACTED = N_ACTED + 1 WHERE ID = v_person_id;
-    ELSIF :NEW.ROLE = 'Director' THEN
-        UPDATE CREW_MEMBER SET N_DIRECTED = N_DIRECTED + 1 WHERE ID = v_person_id;
-    ELSIF :NEW.ROLE = 'Producer' THEN
-        UPDATE CREW_MEMBER SET N_PRODUCED = N_PRODUCED + 1 WHERE ID = v_person_id;
-    END IF;
-END;
-/
-
-
-INSERT INTO LIST_MOVIES(DESCRIPTION_, LIST_NAME, CREATION_DATE, ID_USER)
-VALUES ('Action Movies', 'My Watchlist', TO_DATE('2022-02-15', 'YYYY-MM-DD'), 2);
-
-INSERT INTO LIST_MOVIES(DESCRIPTION_, LIST_NAME, CREATION_DATE, ID_USER)
-VALUES ('Comedy Movies', 'My Funny List', TO_DATE('2022-03-10', 'YYYY-MM-DD'), 3);
-
-INSERT INTO LIST_MOVIES(DESCRIPTION_, LIST_NAME, CREATION_DATE, ID_USER)
-VALUES ('Drama Movies', 'My Drama Collection', TO_DATE('2022-01-20', 'YYYY-MM-DD'), 4);
-
-INSERT INTO LIST_MOVIES(DESCRIPTION_, LIST_NAME, CREATION_DATE, ID_USER)
-VALUES ('Sci-Fi Movies', 'Sci-Fi Faves', TO_DATE('2022-02-28', 'YYYY-MM-DD'), 5);
-
-INSERT INTO LIST_MOVIES(DESCRIPTION_, LIST_NAME, CREATION_DATE, ID_USER)
-VALUES ('Romantic Movies', 'Romance Galore', TO_DATE('2022-03-05', 'YYYY-MM-DD'), 6);
-
-INSERT INTO LIST_MOVIES(DESCRIPTION_, LIST_NAME, CREATION_DATE, ID_USER)
-VALUES ('Horror Movies', 'Spooky List', TO_DATE('2022-01-10', 'YYYY-MM-DD'), 7);
-
-INSERT INTO LIST_MOVIES(DESCRIPTION_, LIST_NAME, CREATION_DATE, ID_USER)
-VALUES ('Thriller Movies', 'Thrill Seekers', TO_DATE('2022-03-15', 'YYYY-MM-DD'), 8);
-
-INSERT INTO LIST_MOVIES(DESCRIPTION_, LIST_NAME, CREATION_DATE, ID_USER)
-VALUES ('Animated Movies', 'Cartoon Classics', TO_DATE('2022-02-20', 'YYYY-MM-DD'), 9);
-
-INSERT INTO LIST_MOVIES(DESCRIPTION_, LIST_NAME, CREATION_DATE, ID_USER)
-VALUES ('Classic Movies', 'Oldies but Goldies', TO_DATE('2022-01-25', 'YYYY-MM-DD'), 10);
-
-INSERT INTO LIST_MOVIES(DESCRIPTION_, LIST_NAME, CREATION_DATE, ID_USER)
-VALUES ('Documentaries', 'Knowledge Hub', TO_DATE('2022-03-18', 'YYYY-MM-DD'), 1);
-
+-- Inserir dados na tabela GENRE
 INSERT INTO GENRE (ID, MOVIE_GENRE) VALUES (1, 'Action');
-INSERT INTO GENRE (ID, MOVIE_GENRE) VALUES (2, 'Drama');
-INSERT INTO GENRE (ID, MOVIE_GENRE) VALUES (3, 'Sitcom');
-INSERT INTO GENRE (ID, MOVIE_GENRE) VALUES (4, 'Action');
-INSERT INTO GENRE (ID, MOVIE_GENRE) VALUES (1, 'Sitcom');
-INSERT INTO GENRE (ID, MOVIE_GENRE) VALUES (5, 'Action');
-INSERT INTO GENRE (ID, MOVIE_GENRE) VALUES (6, 'Action');
-INSERT INTO GENRE (ID, MOVIE_GENRE) VALUES (7, 'Action');
-INSERT INTO GENRE (ID, MOVIE_GENRE) VALUES (8, 'Action');
-INSERT INTO GENRE (ID, MOVIE_GENRE) VALUES (9, 'Action');
-INSERT INTO GENRE (ID, MOVIE_GENRE) VALUES (10, 'Action');
+INSERT INTO GENRE (ID, MOVIE_GENRE) VALUES (2, 'Romance');
 
-INSERT INTO CRITICS_REVIEW (TEXT, ID_MOVIE) VALUES ('Great movie, great action scenes', 1);
-INSERT INTO CRITICS_REVIEW (TEXT, ID_MOVIE) VALUES ('Great movie, great action scenes', 2);
-INSERT INTO CRITICS_REVIEW (TEXT, ID_MOVIE) VALUES ('Great movie, great action scenes', 3);
-INSERT INTO CRITICS_REVIEW (TEXT, ID_MOVIE) VALUES ('Great movie, great action scenes', 4);
-INSERT INTO CRITICS_REVIEW (TEXT, ID_MOVIE) VALUES ('Great movie, great action scenes', 5);
-INSERT INTO CRITICS_REVIEW (TEXT, ID_MOVIE) VALUES ('Great movie, great action scenes', 6);
-INSERT INTO CRITICS_REVIEW (TEXT, ID_MOVIE) VALUES ('Great movie, great action scenes', 7);
-INSERT INTO CRITICS_REVIEW (TEXT, ID_MOVIE) VALUES ('Great movie, great action scenes', 8);
-INSERT INTO CRITICS_REVIEW (TEXT, ID_MOVIE) VALUES ('Great movie, great action scenes', 9);
-INSERT INTO CRITICS_REVIEW (TEXT, ID_MOVIE) VALUES ('Great movie, great action scenes', 10);
+-- Inserir dados na tabela CRITICS_REVIEW
+INSERT INTO CRITICS_REVIEW (TEXT, ID_MOVIE) VALUES ('Inception is a mind-bending masterpiece!', 1);
+INSERT INTO CRITICS_REVIEW (TEXT, ID_MOVIE) VALUES ('Titanic is a timeless classic!', 2);
 
-CREATE OR REPLACE TRIGGER calculate_grade_trigger
-BEFORE INSERT ON WATCHES_
-FOR EACH ROW
-BEGIN
-    IF :NEW.GRADE IS NULL THEN
-        :NEW.GRADE := 0; -- Definindo um valor padrão de 0 se a grade não for especificada na inserção
-    END IF;
-END;
-/
+-- Inserir dados na tabela CREW_MEMBER
+INSERT INTO CREW_MEMBER (ID, CREW_NAME, N_ACTED, N_DIRECTED, N_PRODUCED) VALUES (1, 'Christopher Nolan', 0, 1, 5);
+INSERT INTO CREW_MEMBER (ID, CREW_NAME, N_ACTED, N_DIRECTED, N_PRODUCED) VALUES (2, 'James Cameron', 0, 1, 5);
 
-INSERT INTO REVIEW_ (ID_USER, ID_MOVIE, WATCH_TIME_STAMP, RVW_TIMESTAMP, TEXT, DATE_WATCHED) VALUES (1, 1, TO_TIMESTAMP('2022-03-20 20:00:00', 'YYYY-MM-DD HH24:MI:SS'), TO_TIMESTAMP('2022-03-21 20:00:00', 'YYYY-MM-DD HH24:MI:SS'), 'Great movie, great action scenes', TO_DATE('2022-03-20', 'YYYY-MM-DD'));
-
-
-INSERT INTO CONTAINS (ID_LIST, ID_MOVIE) VALUES (1, 1);
-INSERT INTO CONTAINS (ID_LIST, ID_MOVIE) VALUES (1, 2);
-INSERT INTO CONTAINS (ID_LIST, ID_MOVIE) VALUES (1, 3);
-INSERT INTO CONTAINS (ID_LIST, ID_MOVIE) VALUES (2, 4);
-INSERT INTO CONTAINS (ID_LIST, ID_MOVIE) VALUES (2, 5);
-INSERT INTO CONTAINS (ID_LIST, ID_MOVIE) VALUES (2, 2);
-INSERT INTO CONTAINS (ID_LIST, ID_MOVIE) VALUES (3, 1);
-INSERT INTO CONTAINS (ID_LIST, ID_MOVIE) VALUES (3, 8);
-INSERT INTO CONTAINS (ID_LIST, ID_MOVIE) VALUES (3, 9);
-INSERT INTO CONTAINS (ID_LIST, ID_MOVIE) VALUES (1, 10);
-
-INSERT INTO PLAYED_BY (ID_MOVIE, ID_CREW, ROLE_) VALUES (1, 1, 'Actor');
-
+-- Inserir dados na tabela DIRECTS
 INSERT INTO DIRECTS (ID_MOVIE, ID_CREW) VALUES (1, 1);
 INSERT INTO DIRECTS (ID_MOVIE, ID_CREW) VALUES (2, 2);
 
-INSERT INTO PROMOTES (ID_USER, ID_CREW_MEMBER, ID_MOVIE, TEXT) VALUES (1, 1, 1, 'Great movie, great action scenes');
+-- Inserir dados na tabela PROMOTES
+INSERT INTO PROMOTES (ID_USER, ID_CREW_MEMBER, ID_MOVIE, TEXT) VALUES (1, 1, 1, 'A must-watch by Christopher Nolan!');
+INSERT INTO PROMOTES (ID_USER, ID_CREW_MEMBER, ID_MOVIE, TEXT) VALUES (2, 2, 2, 'Experience the magic by James Cameron!');
 
+-- Inserir dados na tabela FOLLOWS
 INSERT INTO FOLLOWS (ID_FOLLOWS, ID_IS_FOLLOWED) VALUES (1, 2);
-INSERT INTO FOLLOWS (ID_FOLLOWS, ID_IS_FOLLOWED) VALUES (2, 3);
+
+-- Exemplo de trigger para atualizar o número de filmes assistidos por usuário
+CREATE OR REPLACE TRIGGER UPDATE_WATCHED_MOVIES
+AFTER INSERT ON WATCHES_
+FOR EACH ROW
+BEGIN
+    UPDATE USER_ 
+    SET WATCHED = WATCHED + 1
+    WHERE ID = :NEW.ID_USER;
+END;
+/
+
+-- Exemplo de trigger para calcular a média de notas de um filme
+CREATE OR REPLACE TRIGGER CALCULATE_AVERAGE_GRADE
+AFTER INSERT ON REVIEW_
+FOR EACH ROW
+BEGIN
+    UPDATE MOVIE
+    SET AVERAGE_GRADE = (
+        SELECT AVG(GRADE)
+        FROM REVIEW_
+        WHERE ID_MOVIE = :NEW.ID_MOVIE
+    )
+    WHERE ID = :NEW.ID_MOVIE;
+END;
+/
