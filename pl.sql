@@ -53,7 +53,7 @@ BEGIN
 END;
 
 -- PL MARIA
--- Checar a data que o usuario assistiu um filme é a mesma usada para o review
+-- Checar se a data que o usuario assistiu um filme é a mesma usada para o review
 CREATE OR REPLACE TRIGGER CHECK_WATCH_DATE 
 BEFORE INSERT ON REVIEW_
 FOR EACH ROW
