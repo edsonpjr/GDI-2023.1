@@ -20,7 +20,8 @@ WHERE EXISTS (
     SELECT *
     FROM  LIST_MOVIES
     WHERE LIST_MOVIES.ID_USER = U.ID
-);
+)
+ORDER BY U.NICK;
 
 -- Anti-junção
 -- Filmes que nunca foram listados
@@ -30,7 +31,7 @@ WHERE NOT EXISTS (
     SELECT *
     FROM CONTAINS C
     WHERE C.ID_MOVIE = M.ID
-)
+);
 
 -- Subconsulta do tipo escalar 
 -- Filmes cuja média de notas é maior do que a média geral das médias de notas dos filmes
