@@ -34,6 +34,15 @@ WHERE AVERAGE_GRADE > (
     FROM MOVIE
 );
 
+-- Subconsulta do tipo escalar
+SELECT M1.MOVIE_NAME
+FROM MOVIE M1
+WHERE M1.D_YEAR = (
+    SELECT M2.D_YEAR
+    FROM MOVIE M2
+    WHERE M2.ID = 1
+);
+
 -- Subconsulta do tipo linha
 
 -- Subconsulta do tipo tabela
