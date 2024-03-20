@@ -14,12 +14,12 @@ LEFT JOIN CRITICS_REVIEW CR ON M.ID = CR.ID_MOVIE;
 
 -- Semi junção 
 -- Esta consulta retornará todos os IDs e apelidos de usuários que tem pelo menos uma rev
-SELECT U.ID, U.NICK
+SELECT U.NICK
 FROM USER_ U
 WHERE EXISTS (
     SELECT *
-    FROM WATCHES_ W
-    WHERE W.ID_USER = U.ID
+    FROM  LIST_MOVIES
+    WHERE LIST_MOVIES.ID_USER = U.ID
 );
 
 -- Anti-junção
