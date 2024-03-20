@@ -12,7 +12,7 @@ BEGIN
     SET WATCHED = v_watched_count
     WHERE ID = p_user_id;
 END;
-
+-- Testa o uso do for, tem como fazer de forma mais eficiente.
 CREATE OR REPLACE TRIGGER UPDATE_ALL_WATCHED_MOVIES_AFTER_INSERT
 AFTER INSERT ON WATCHES_
 BEGIN
