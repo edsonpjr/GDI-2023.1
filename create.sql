@@ -189,7 +189,8 @@ INSERT INTO PROMOTES (ID_USER, ID_CREW_MEMBER, ID_MOVIE, TEXT) VALUES (2, 2, 2, 
 -- Inserir dados na tabela FOLLOWS
 INSERT INTO FOLLOWS (ID_FOLLOWS, ID_IS_FOLLOWED) VALUES (1, 2);
 
--- Exemplo de trigger para atualizar o número de filmes assistidos por usuário
+-- PL:
+-- Adiciona o numero de filmes assistidos a lista do usuario
 CREATE OR REPLACE TRIGGER UPDATE_WATCHED_MOVIES
 AFTER INSERT ON WATCHES_
 FOR EACH ROW
@@ -198,9 +199,8 @@ BEGIN
     SET WATCHED = WATCHED + 1
     WHERE ID = :NEW.ID_USER;
 END;
-/
 
--- Exemplo de trigger para calcular a média de notas de um filme
+-- Calcular a média de notas de um filme
 CREATE OR REPLACE TRIGGER CALCULATE_AVERAGE_GRADE
 AFTER INSERT ON REVIEW_
 FOR EACH ROW
@@ -213,4 +213,22 @@ BEGIN
     )
     WHERE ID = :NEW.ID_MOVIE;
 END;
-/
+
+-- Trigger para atualizar o número de filmes atuados, dirigidos por um membro da equipe
+CREATE OR REPLACE TRIGGER UPDATE_N_ACTED_AFTER_INSERT
+AFTER INSERT ON PLAYED_BY
+FOR EACH ROW
+BEGIN
+  UPDATE CREW_MEMBER
+  SET N_ACTED = N_ACTED + 1
+  WHERE ID = :NEW.ID_CREW;
+END;
+    
+CREATE OR REPLACE TRIGGER UPDATE_N_DIRECTED_AFTER_INSERT
+AFTER INSERT ON DIRECTS
+FOR EACH ROW
+BEGIN
+  UPDATE CREW_MEMBER
+  SET N_DIRECTED = N_DIRECTED + 1
+  WHERE ID = :NEW.ID_CREW;
+END;
