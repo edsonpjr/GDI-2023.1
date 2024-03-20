@@ -13,7 +13,7 @@ FROM MOVIE M
 LEFT JOIN CRITICS_REVIEW CR ON M.ID = CR.ID_MOVIE;
 
 -- Semi junção 
--- Esta consulta retornará todos os IDs e apelidos de usuários que assistiram a pelo menos um filme.
+-- Esta consulta retornará todos os IDs e apelidos de usuários que tem pelo menos uma rev
 SELECT U.ID, U.NICK
 FROM USER_ U
 WHERE EXISTS (
