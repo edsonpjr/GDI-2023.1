@@ -23,7 +23,14 @@ WHERE EXISTS (
 );
 
 -- Anti-junção
-
+-- Filmes que nunca foram listados
+SELECT M.MOVIE_NAME
+FROM MOVIE M
+WHERE NOT EXISTS (
+    SELECT *
+    FROM CONTAINS C
+    WHERE C.ID_MOVIE = M.ID
+)
 
 -- Subconsulta do tipo escalar 
 -- Filmes cuja média de notas é maior do que a média geral das médias de notas dos filmes
