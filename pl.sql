@@ -1,6 +1,5 @@
--- Este procedimento pode ser chamado de um trigger após a inserção de um novo registro na tabela WATCHES_, 
--- garantindo que o número de filmes assistidos seja sempre mantido atualizado para cada usuário.
-
+-- Atualiza watched (Numero de filmes assistidos em USER_
+-- PL EDSON
 CREATE OR REPLACE PROCEDURE UPDATE_WATCHED_MOVIES_PROC (p_user_id IN NUMBER) AS
     v_watched_count NUMBER;
 BEGIN
@@ -13,24 +12,16 @@ BEGIN
     SET WATCHED = v_watched_count
     WHERE ID = p_user_id;
 END;
-/
 
--- Este procedimento utiliza um trigger após a inserção de uma nova avaliação na tabela REVIEW_, 
--- garantindo que a média das avaliações seja sempre mantida atualizada para cada filme.
-CREATE OR REPLACE PROCEDURE CALCULATE_AVERAGE_GRADE_PROC (p_movie_id IN NUMBER) AS
-    v_avg_grade NUMBER;
+CREATE OR REPLACE TRIGGER UPDATE_ALL_WATCHED_MOVIES_AFTER_INSERT
+AFTER INSERT ON WATCHES_
 BEGIN
-    SELECT AVG(GRADE)
-    INTO v_avg_grade
-    FROM REVIEW_
-    WHERE ID_MOVIE = p_movie_id;
-
-    UPDATE MOVIE
-    SET AVERAGE_GRADE = v_avg_grade
-    WHERE ID = p_movie_id;
+    FOR r IN (SELECT DISTINCT ID_USER FROM WATCHES_) LOOP
+        UPDATE_WATCHED_MOVIES_PROC(r.ID_USER);
+    END LOOP;
 END;
-/
 
+-- PL MARCONDES
 -- Atualiza N_ACTED
 CREATE OR REPLACE TRIGGER UPDATE_N_ACTED_AFTER_INSERT
 AFTER INSERT ON PLAYED_BY
