@@ -4,13 +4,11 @@
 CREATE OR REPLACE PROCEDURE UPDATE_WATCHED_MOVIES_PROC (p_user_id IN NUMBER) AS
     v_watched_count NUMBER;
 BEGIN
-    -- Contar o número de filmes assistidos pelo usuário
     SELECT COUNT(*)
     INTO v_watched_count
     FROM WATCHES_
     WHERE ID_USER = p_user_id;
 
-    -- Atualizar o número de filmes assistidos na tabela USER_
     UPDATE USER_
     SET WATCHED = v_watched_count
     WHERE ID = p_user_id;
@@ -22,15 +20,33 @@ END;
 CREATE OR REPLACE PROCEDURE CALCULATE_AVERAGE_GRADE_PROC (p_movie_id IN NUMBER) AS
     v_avg_grade NUMBER;
 BEGIN
-    -- Calcular a média das avaliações do filme
     SELECT AVG(GRADE)
     INTO v_avg_grade
     FROM REVIEW_
     WHERE ID_MOVIE = p_movie_id;
 
-    -- Atualizar a média de avaliações do filme na tabela MOVIE
     UPDATE MOVIE
     SET AVERAGE_GRADE = v_avg_grade
     WHERE ID = p_movie_id;
 END;
 /
+
+-- Atualiza N_ACTED
+CREATE OR REPLACE TRIGGER UPDATE_N_ACTED_AFTER_INSERT
+AFTER INSERT ON PLAYED_BY
+FOR EACH ROW
+BEGIN
+  UPDATE CREW_MEMBER
+  SET N_ACTED = N_ACTED + 1
+  WHERE ID = :NEW.ID_CREW;
+END;
+
+-- Atualiza N_DIRECTED
+CREATE OR REPLACE TRIGGER UPDATE_N_DIRECTED_AFTER_INSERT
+AFTER INSERT ON DIRECTS
+FOR EACH ROW
+BEGIN
+  UPDATE CREW_MEMBER
+  SET N_DIRECTED = N_DIRECTED + 1
+  WHERE ID = :NEW.ID_CREW;
+END;
