@@ -19,7 +19,7 @@ FROM MOVIE M
 INNER JOIN DIRECTS D ON M.ID = D.ID_MOVIE
 INNER JOIN CREW_MEMBER CM ON D.ID_CREW = CM.ID;
 
--- Junção externa - Retorna uma lista de todos os filmes, juntamente com as críticas dos críticos associadas a cada filme, se disponível.
+-- Junção externa - Retorna uma lista de todos os filmes, juntamente com as críticas associadas a cada filme, se disponível.
 SELECT M.MOVIE_NAME, CR.TEXT AS CRITIC_REVIEW
 FROM MOVIE M
 LEFT JOIN CRITICS_REVIEW CR ON M.ID = CR.ID_MOVIE;
