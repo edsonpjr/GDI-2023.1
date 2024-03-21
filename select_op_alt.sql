@@ -1,4 +1,4 @@
--- GROUP BY/HAVING -
+la-- GROUP BY/HAVING -
 -- Achar filmes que possuem um numero maior que 1 de críticas
 SELECT
     M.MOVIE_NAME,
@@ -25,7 +25,7 @@ FROM MOVIE M
 LEFT JOIN CRITICS_REVIEW CR ON M.ID = CR.ID_MOVIE;
 
 -- Semi junção 
--- Esta consulta retornará todos os IDs e apelidos de usuários que tem pelo menos uma lista
+-- Consulta para obter nick do usuario que possui listas feitas
 SELECT U.NICK
 FROM USER_ U
 WHERE EXISTS (
