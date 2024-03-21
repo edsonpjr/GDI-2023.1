@@ -71,3 +71,24 @@ WHERE M.ID IN (
 );
 
 -- Operação de conjunto
+-- Consulta para obter os nomes das pessoas e seus filmes favoritos junto aos diretores e seus filmes dirigidos
+SELECT
+    U.NICK             AS INFO,
+    FM.FAVORITE_MOVIES AS MOVIE_NAME
+FROM
+    PERSON          P
+    INNER JOIN FAVORITE_MOVIES FM
+    ON P.ID = FM.ID
+    INNER JOIN USER_ U
+    ON U.ID = P.ID
+UNION
+
+SELECT
+    CM.CREW_NAME AS DIRECTOR,
+    M.MOVIE_NAME
+FROM
+    MOVIE       M
+    INNER JOIN DIRECTS D
+    ON M.ID = D.ID_MOVIE
+    INNER JOIN CREW_MEMBER CM
+    ON D.ID_CREW = CM.ID;
