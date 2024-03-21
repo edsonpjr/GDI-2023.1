@@ -1,4 +1,16 @@
 -- GROUP BY/HAVING -
+-- Achar filmes que possuem um numero maior que 1 de críticas
+SELECT
+    M.MOVIE_NAME,
+    COUNT(R.ID_MOVIE) AS NUM_REVIEWS
+FROM
+    MOVIE   M
+    JOIN REVIEW_ R
+    ON M.ID = R.ID_MOVIE
+GROUP BY
+    M.MOVIE_NAME
+HAVING
+    COUNT(R.ID_MOVIE) > 1;
 
 
 -- Junçao interna - Retorna o nome de cada filme e o nome do diretor de cada filme. 
