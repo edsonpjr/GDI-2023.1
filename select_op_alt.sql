@@ -74,6 +74,17 @@ WHERE L.ID_USER = 1 AND (L.LIST_NAME, L.CREATION_DATE) = (
     WHERE L2.ID = 2
 );
 
+-- Subconsulta do tipo linha
+SELECT M1.MOVIE_NAME
+FROM MOVIE M1 INNER JOIN GENRE G1
+ON M1.ID = G1.ID
+WHERE (G1.MOVIE_GENRE, M1.D_YEAR) = (
+    SELECT G2.MOVIE_GENRE, M2.D_YEAR
+    FROM MOVIE M2 INNER JOIN GENRE G2
+    ON M2.ID = G2.ID
+    WHERE M2.ID = 1
+);
+
 -- Subconsulta do tipo tabela -- Filmes que tem atores registrados
 SELECT M.NAME
 FROM MOVIE M
