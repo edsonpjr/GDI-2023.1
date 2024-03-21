@@ -25,7 +25,7 @@ FROM MOVIE M
 LEFT JOIN CRITICS_REVIEW CR ON M.ID = CR.ID_MOVIE;
 
 -- Semi junção 
--- Esta consulta retornará todos os IDs e apelidos de usuários que tem pelo menos uma rev
+-- Esta consulta retornará todos os IDs e apelidos de usuários que tem pelo menos uma lista
 SELECT U.NICK
 FROM USER_ U
 WHERE EXISTS (
