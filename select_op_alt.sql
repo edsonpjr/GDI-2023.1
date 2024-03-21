@@ -65,16 +65,7 @@ WHERE M1.D_YEAR = (
 );
 
 -- Subconsulta do tipo linha
--- Descrições das listas de filme do usuário de ID = 1 que tem o mesmo nome e data de criação que a lista de Id = 2
-SELECT L.DESCRIPTION_
-FROM LIST_MOVIES L
-WHERE L.ID_USER = 1 AND (L.LIST_NAME, L.CREATION_DATE) = (
-    SELECT L2.LIST_NAME, L2.CREATION_DATE
-    FROM LIST_MOVIES L2
-    WHERE L2.ID = 2
-);
-
--- Subconsulta do tipo linha
+-- Listas de filme do que tem o mesmo genero e ano que o filme de ID 1
 SELECT M1.MOVIE_NAME
 FROM MOVIE M1 INNER JOIN GENRE G1
 ON M1.ID = G1.ID
@@ -85,7 +76,7 @@ WHERE (G1.MOVIE_GENRE, M1.D_YEAR) = (
     WHERE M2.ID = 1
 );
 
--- Subconsulta do tipo tabela -- Filmes que tem atores registrados
+-- Subconsulta do tipo tabela -- Filmes que tem diretores registrados
 SELECT M.NAME
 FROM MOVIE M
 WHERE M.ID IN (
