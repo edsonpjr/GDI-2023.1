@@ -86,11 +86,12 @@ WHERE (G1.MOVIE_GENRE, M1.D_YEAR) = (
 );
 
 -- Subconsulta do tipo tabela -- Filmes que tem atores registrados
-SELECT M.NAME
+SELECT M.MOVIE_NAME
 FROM MOVIE M
 WHERE M.ID IN (
-    SELECT DIR.ID
-    FROM DIR PB
+    SELECT P.ID_MOVIE
+    FROM PLAYED_BY P
+    WHERE P.ID_CREW IS NOT NULL
 );
 
 -- Operação de conjunto
