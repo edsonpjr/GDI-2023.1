@@ -69,3 +69,17 @@ BEGIN
         RAISE_APPLICATION_ERROR(-20000, 'Watch date does not match the review date');
     END IF;
 END;
+
+-- PL FELIPE
+-- Calcular a média das notas dos filmes assistidos pelo usuário
+CREATE OR REPLACE PROCEDURE CALCULATE_AVERAGE_GRADE (p_user_id IN NUMBER) AS
+    v_average_grade NUMBER;
+BEGIN
+    SELECT AVG(GRADE) INTO v_average_grade
+    FROM WATCHES_
+    WHERE ID_USER = p_user_id;
+
+    -- Exibir a média das notas
+    DBMS_OUTPUT.PUT_LINE('Average grade for user ' || p_user_id || ': ' || v_average_grade);
+END CALCULATE_AVERAGE_GRADE;
+/
