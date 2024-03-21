@@ -82,4 +82,31 @@ BEGIN
     -- Exibir a média das notas
     DBMS_OUTPUT.PUT_LINE('Average grade for user ' || p_user_id || ': ' || v_average_grade);
 END CALCULATE_AVERAGE_GRADE;
+
+-- PL Pedro César
+-- Evitar duplicatas em favoritos do user
+CREATE OR REPLACE TRIGGER PREVENT_DUPLICATE_FAVORITES
+BEFORE INSERT ON FAVORITE_MOVIES
+FOR EACH ROW
+DECLARE
+    v_favorite_count NUMBER;
+BEGIN
+
+    -- Conta quantas vezes o filme ja foi adicionado aos favoritos pelo user
+
+    SELECT COUNT(*)
+    INTO v_favorite_count
+    FROM FAVORITE_MOVIES
+
+    -- O prefixo :NEW acessa valores da nova entrada a ser inserida, prevenindo duplicatas.
+    WHERE ID = :NEW.ID AND FAVORITE_MOVIES = :NEW.FAVORITE_MOVIES;
+    
+    -- Se o filme já existe na lista de favoritos, lança um erro.
+    IF v_favorite_count > 0 THEN
+        RAISE_APPLICATION_ERROR(-20002, 'O filme já está na lista de favoritos.');
+    END IF;
+END;
 /
+    
+-- POde ser testado com esse comando 2x: 
+-- INSERT INTO FAVORITE_MOVIES (ID, FAVORITE_MOVIES) VALUES (1, 'Matrix');
